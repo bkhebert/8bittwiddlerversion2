@@ -4,7 +4,7 @@
  */
 
 // Set up data structures
-const streams = {
+const streams = { //an object
   home: [],
   users: {
     shawndrost: [],
@@ -13,7 +13,7 @@ const streams = {
     douglascalhoun: [],
   },
 };
-const users = Object.keys(streams.users);
+const users = Object.keys(streams.users); //an array of strings --all the usernames that you're following
 
 // Utility function for adding tweets to our data structures
 const addTweet = (newTweet) => {
