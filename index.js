@@ -12,6 +12,8 @@ $(document).ready(() => {
 
       return $tweet;
     });
+
   $body.append($tweets);
   }
+  
 });
