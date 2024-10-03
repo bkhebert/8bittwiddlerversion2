@@ -15,7 +15,7 @@ $(document).ready(() => {
   $body.append($section) //places section into the body at the bottom
   $section.appendTo($div) //places the section into the div
   $body.append($div) //has the body place the div at the bottom
-
+  
 
   function createTweets() {
     const $tweets = streams.home.map((tweet) => {
@@ -24,9 +24,10 @@ $(document).ready(() => {
       let min = timeNow.getMinutes();
       const $tweet = $(`<div id=${tweet.user} class="user"></div>`);
       const text = `@${tweet.user}: ${tweet.message} ${hr}:${min}`; //this part will also change, something about being clickable
-
+      //$tweet.prepend($link2Page)
       $tweet.text(text); //we will add a timestamp to this
-      
+      const $link2Page = $(`<a href="raccooncitymassacre.bandcamp.com">@${tweet.user}</a>`)
+      $tweet.prepend($link2Page)
       return $tweet;
     });
 
@@ -37,4 +38,9 @@ $(document).ready(() => {
   $('.user').on('click', () => {
     console.log('clicked')
  })
+
+$('.user').append($link2Page)
+  $('.user').click(() => {
+    console.log('clicked')
+})
 });
