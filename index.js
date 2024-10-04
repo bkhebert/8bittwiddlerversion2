@@ -92,6 +92,8 @@ $(document).ready(() => {
       $(`#${theUser}`).siblings().empty();
       //change the clicked variable to true
       iWasClicked = true;
+      //remove the ability to create new tweets
+      $("#newPostsSection").remove();
       //reassign the homePage to point to the proper array
       homePage = streams.users[theUser];
       //call the create tweets function, passing in the homePage array
@@ -118,10 +120,66 @@ setInterval(createTweets, 7000); //for now this is cool
           //decrease the id variable by 1
           $(this).attr('id', Number($(this).attr('id')) - 1);
         }
-        
+
         //double check variable to ensure it is decreasing and the reference is correct
         console.log(Number($(this).attr('id')))
       })
   //have this setInterval function run every second. 
   }, 1000)
+  //create a container for the new section that will take in posts
+  $newPostsSection = ('<section id="newPostsSection" class="newposts"></section>');
+  //pass this section into the post-maker section
+  postMaker($newPostsSection)
+  //create the function that will take sections for the posts and add them to the top
+  //NOTE: All new posts will be forms prepended to the $div for tweets
+  function postMaker(sectionForPosts) {
+    //assign a jquery variable to the parameter taken in
+    const $container = $(sectionForPosts);
+    //create a form tag is used to collect information a user provides
+    const $form = $("<form>").appendTo($container);
+    //the <label> tag is used to create a label for where the username will go
+    $("<label for='postTitle'>UserName:</label>").appendTo($form);
+    //use the <input> tag to create an area to put the username, append it to the form
+    $("<input type='text' id='UserInput' name='title'>").appendTo($form);
+    //use the <br> tag for a line break and append it to the form
+    $("<br>").appendTo($form);
+    //we prepend this container to the top of the $div section for tweets
+    $div.prepend($container)
+    //the label tag is used to label a part of a form, here we label a part twiit
+    $("<label for='postContent'>Twiit:</label>").appendTo($form);
+    //the <textarea> tag creates a multi-line plain text editing area
+    $("<textarea id='postContent' name='content'></textarea>").appendTo($form);
+    //the <br> tag is to create a line break without creating a new paragraph
+    $("<br>").appendTo($form);
+    //create a button
+    $button = $("<button type='submit'>Twiit It Baby!</button>")
+    //append the button to the form
+    $button.appendTo($form);
+  
+    // this function prevents the form from refreshing the page, when the submit button is pushed
+    $form.submit(function(event) {
+      //it prevents the page from refreshing
+      event.preventDefault();
+    });
+
+    //whenever the button is clicked
+    $button.on('click', () => {
+      //initialize a variable to the tag with id UserInput's value
+      const title = $("#UserInput").val();
+      //initialize a variable to the tag with id postContent's value
+      const content = $("#postContent").val();
+      //let newArr = [{ user: "", message: ""}] // do we need a new array?
+      //check to see if it is registering the clicks 
+      console.log("CLICKED")
+      //assign a new users object key of title variable, and value of an array object with 2 key value pairs
+      //the key value pairs hold the users key with value of title
+      //and a message key with the value of the content
+      streams.users[title] = [{ user: title, message: content}]
+      //call the create tweets function passing in this value
+      setTimeout(createTweets(streams.users[title]), 0);
+      //delete the created object
+      delete streams.users[title]
+    })
+  }
+
 });
