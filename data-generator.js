@@ -66,6 +66,7 @@ const scheduleNextTweet = () => {
 scheduleNextTweet();
 
 // Utility function for letting students add "write a tweet" functionality
+
 // (NOTE: Not used by the rest of this file.)
 const writeTweet = (message) => {
   const visitor = window.visitor;

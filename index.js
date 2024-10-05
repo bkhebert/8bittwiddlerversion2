@@ -11,7 +11,22 @@ const now1 = moment();
 $styleRequest1 = $('<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Silkscreen"></link>')
   
 $(document).ready(() => {
-
+  let arrayOfMemes = [
+    "6gq0gr3k7ssd1.jpeg",
+    "4ewpesaf5tqd1.jpeg",
+    "62ab3c9c20df5.jpeg",
+    "461209492_847786324157040_7722865567795731513_n.jpg",
+    "461281187_1746659819435140_8220667635872565603_n.jpg",
+    "o7hca05utosd1.jpeg",
+    "q4ynf9kmntsd1.jpeg",
+    "q76yhrj9oya31.jpg",
+    "svyk6sqb8uqd1.png",
+    "svyk6sqb8uqd1.png",
+    "uhq7296wzrsd1.jpeg",
+    "Untitled.png",
+    "Yoda.jpeg",
+    "are-you-hungry-enough-to-pick-up-the-phone.jpg",
+  ]
   $('head').attr('id', 'head');
   //import a font
   $styleRequest = $('<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Silkscreen"></link>')
@@ -30,13 +45,13 @@ $(document).ready(() => {
   let homePage = undefined;
   $body.html('');
   //create a header for the logo
-  $logo = $('<h1 id="logo"></h1>')
+  $logo = $('<h1 id="logo" style="font-family: Silkscreen;"></h1>')
 
   //make its text content say "twiddler"
   .text("8-bit Twiddler")
-  .css('color', 'purple')
+  .css('color', 'rgb(114, 0, 140)')
   .css({ background: "-webkit-gradient(linear, left top, left bottom, from(#3CA125), to(rgb(255, 247, 0)))" })
-  
+  .css("font-size", "60px")
   //initialize a variable to a section for tweets
   $section = $('<section id="Tweets Section"></section>');
   //initialize a variable to a div for tweets
@@ -56,6 +71,9 @@ $(document).ready(() => {
   //call the function to create tweets
   $body.prepend($styleRequest)
   createTweets()
+  $logo.css("text-align", "center");
+  $logo.css('border-style', 'groove')
+  .css('border-color', 'black')
   
     function createTweets(array) {
       //initialize a variable to now
@@ -80,7 +98,7 @@ $(document).ready(() => {
       //freeze a moment in time
       const timeAgo = frozenMoment.fromNow()
       //set the tweet to be a div with class "user"
-      const $tweet = $(`<div id=${tweet.user} class="user" style="font-family: Silkscreen; width:800px; margin:0 auto;" ></div>`);
+      const $tweet = $(`<div id=${tweet.user} class="user" style="font-family: Silkscreen; width:1000px; margin:0 auto;" ></div>`);
       //set a variable to text content of the username and message
       const $divText = $(`<div id="message&user"><strong>@${tweet.user}:</strong> ${tweet.message}></div>`); //this part will also change, something about being clickable
       //add this text to the tweet div
@@ -96,13 +114,41 @@ $(document).ready(() => {
       $tweet.prepend($timePosted);
       //return the tweet value
       //give the tweet style
+      
+      if(Math.floor(Math.random() * arrayOfMemes.length ) % 2 === 0){
+        $theMeme = $(`<img id="theImg" src="${arrayOfMemes[Math.floor(Math.random() * arrayOfMemes.length )]}" />`)
+
+        .css("max-height", "300px")
+        
+        $tweet.append($theMeme)  
+        $tweet.css("color", "rgb(242, 255, 0)")
+        $tweet.css("border-style", 'outset');
+        $tweet.css("border-color", "rgb(114, 0, 140)")
+        $tweet.css('border-width','8px')
+        $tweet.css("background-color", "rgb(0, 2, 140)")
+        $timeAgo.css("font-size", "14px")
+        $divText.css("font-size", "18px")
+        $timePosted.css("font-size", "7")
+        $timeAgo.css({"font-style": "italic"})
+        $tweet.width(600);
+        $tweet.height(400);
+        $theMeme.css("text-align", "center");
+        $theMeme.css('border-style', 'groove')
+        $theMeme.css('float',  'center')
+      
+      
+      
+      return $tweet;
+      } else {
+      
       $tweet.css("color", "yellow")
       $tweet.css("border-style", 'outset');
-      $tweet.css("border-color", "purple")
-      $tweet.css("background-color", "blue")
+      $tweet.css("border-color", "rgb(114, 0, 140)")
+      $tweet.css('border-width','8px')
+      $tweet.css("background-color", "rgb(0, 2, 140)")
       $timeAgo.css("font-size", "14px")
-      $divText.css("font-size", "15px")
-      $timePosted.css("font-size", "10")
+      $divText.css("font-size", "18px")
+      $timePosted.css("font-size", "7")
       $timeAgo.css({"font-style": "italic"})
       $tweet.width(600);
       $tweet.height(100);
@@ -111,6 +157,7 @@ $(document).ready(() => {
       
       
       return $tweet;
+      }
     });
 
   //append the tweets to the tweet section
@@ -132,7 +179,7 @@ $(document).ready(() => {
     })
   };
 //set up created tweets to appear every few seconds
-setInterval(createTweets, 4000); //for now this is cool
+setInterval(createTweets, 2000); //for now this is cool
   //this setInterval function will be how we keep track of time
   setInterval( function(){
     //check to see if function is triggering and this will help tell when it resets
@@ -159,7 +206,7 @@ setInterval(createTweets, 4000); //for now this is cool
   }, 1000)
   //create a container for the new section that will take in posts
   $newPostsSection = ('<section id="newPostsSection"  class="newposts" ></section>');
-  $("<br>").appendTo($newPostsSection);
+  
   //pass this section into the post-maker section
   postMaker($newPostsSection)
   //create the function that will take sections for the posts and add them to the top
@@ -198,21 +245,23 @@ setInterval(createTweets, 4000); //for now this is cool
     //$button.css("text-align", "center")
     $container.css('color', 'yellow')
     $container.css("border-style", 'outset');
-    $container.css("border-color", "purple")
-    $container.css("background-color", "blue")
+    $container.css("border-color", "rgb(114, 0, 140)")
+    $container.css("background-color", "rgb(0, 2, 140)")
+    $container.css('border-width','20px')
     $container.width(300);
     $container.height(150);
     $container.css({
       "margin-left": "auto",
       "margin-right": "auto"
     })
-    $button.css('background-color', 'green')
+    $button.css('background-color', 'rgb(0, 255, 0)')
     $textAreaContent.css('color', 'white')
     $textAreaContent.css('background-color', 'black')
     $textAreaContent.parent().css("text-align", "center");
     $inputUserName.css('color', 'white')
     $inputUserName.css('background-color', 'black')
-    
+    $divForm = $('<div id="divForm>')
+    $divForm.appendTo($container)
     // this function prevents the form from refreshing the page, when the submit button is pushed
     $form.submit(function(event) {
       //it prevents the page from refreshing
@@ -241,5 +290,22 @@ setInterval(createTweets, 4000); //for now this is cool
     //styling the button
     
   }
+ $musicPlayer = $(`<audio id="myAudio" style="width:600px; height:18px; margin:0 auto;" controls><source src="sound check solo project boosted backing synth.mp3" type="audio/mpeg"></audio>`);
+ $musicPlayer.prependTo($div)
+  $musicOfWeek =  $('<h6 id="SOTW" style="font-family: Silkscreen;"></h6>')
+  .text("8-bit Song Of The Week: ")
+  .css('color', 'rgb(255, 255, 0)')
+  .css({ background: "-webkit-gradient(linear, bottom, top, from(#3CA125), to(rgb(255, 247, 0)))" })
+  .css("text-align", "left")
+  .css('font-size', '20px')
+  .css('background-color', 'black')
+  $musicOfWeek.appendTo($logo)
+  $musicOfWeek.append($musicPlayer)
+  $musicOfWeek.css({
+    "position": "fixed",
+    "bottom": "0"
+    
+  });
+ 
 
 });
