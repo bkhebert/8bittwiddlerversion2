@@ -290,7 +290,7 @@ setInterval(createTweets, 2000); //for now this is cool
     //styling the button
     
   }
- $musicPlayer = $(`<audio id="myAudio" style="width:600px; height:18px; margin:0 auto;" controls><source src="sound check solo project boosted backing synth.mp3" type="audio/mpeg"></audio>`);
+ $musicPlayer = $(`<audio id="myAudio" style="width:600px; height:18px; margin:0 auto;" controls><source src="8bitjingle2.mp3" type="audio/mpeg"></audio>`);
  $musicPlayer.prependTo($div)
   $musicOfWeek =  $('<h6 id="SOTW" style="font-family: Silkscreen;"></h6>')
   .text("8-bit Song Of The Week: ")
