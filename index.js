@@ -495,14 +495,14 @@ $(document).ready(() => {
           $('.newposts').css('color', colors[Math.floor(Math.random() * colors.length)])
           .css('border-color', colors[Math.floor(Math.random() * colors.length)])
           .css('background-color', colors[Math.floor(Math.random() * colors.length)])
-          .css('border-width', `${Math.floor(Math.random() * 100).toString() + 'px'}` )
+          .css('border-width', `${Math.floor(Math.random() * 50).toString() + 'px'}` )
           $('.twiitit').css('background-color', colors[Math.floor(Math.random() * colors.length)])
           $('#body').css('background-image', 'url(https://i.redd.it/4pr23l3rauz51.jpg)');
           $('.divTEXT').css('font-size', `${Math.floor(Math.random() * 300).toString() + 'px'}`)
           $('.timeAgo').css('font-size', `${Math.floor(Math.random() * 300).toString() + 'px'}`)
           $('.time').css('font-size', `${Math.floor(Math.random() * 300).toString() + 'px'}`)
             eotw++
-            if(eotw > 300){
+            if(eotw > 200){
               $body.empty()
             }
         }, 50);
