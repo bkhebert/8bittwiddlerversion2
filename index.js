@@ -173,7 +173,7 @@ $(document).ready(() => {
   };
 
   //set up created tweets to appear every few seconds
-  setInterval(createTweets, 500); //for now this is cool
+  setInterval(createTweets, 4200); //for now this is cool
     //this setInterval function will be how we keep track of time
     setInterval( function(){
       //all tags with class "timeAgo" will be passed into an each function that will check their id(the variable x from earlier) value
