@@ -135,7 +135,8 @@ $(document).ready(() => {
         
         
           //this if statement will randomly be triggered if the random number generated is even
-          if(Math.floor((Math.random() * arrayOfMemes.length ) % 2 === 0 ) || redactedWasPushed > 4){
+          if(Math.floor(Math.random() * 10 ) % 2 === 0 || redactedWasPushed > 4 ){
+            console.log('hello')
             //create a section for the memes, where the source will be randomly generated
             $theMeme = $(`<img id="theImg" src="${arrayOfMemes[Math.floor(Math.random() * arrayOfMemes.length )]}" />`)
             //set a height limit for the meme
@@ -172,7 +173,7 @@ $(document).ready(() => {
   };
 
   //set up created tweets to appear every few seconds
-  setInterval(createTweets, 5000); //for now this is cool
+  setInterval(createTweets, 500); //for now this is cool
     //this setInterval function will be how we keep track of time
     setInterval( function(){
       //all tags with class "timeAgo" will be passed into an each function that will check their id(the variable x from earlier) value
