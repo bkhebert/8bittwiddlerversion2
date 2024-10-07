@@ -204,9 +204,17 @@ $(document).ready(() => {
       })
     //have this setInterval function run every second. 
     }, 1000)
-  
+    
+    //a way to go back to home page by clicking the logo.
     $('#logo').on('click', function () {
+     //this if statement prevents duplicates from being made
+      if($('#newPostsSection')){
+        //removal
+        $('#newPostsSection').remove()
+      }
+      //this restarts the creation of tweets
       createTweets(streams.home)
+      //this brings back the newPosts
       postMaker($newPostsSection);
         })
   //pass the newPostsSection into the post-maker function
