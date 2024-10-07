@@ -4,9 +4,6 @@ streams.home is an array of all tweets from all the users you're following.
 streams.users is an object with properties for each user. streams.users.shawndrost has all of shawndrost's tweets.
 */
 //set up variables for time
-let timeNow = new Date();
-let hr = timeNow.getHours();
-let min = timeNow.getMinutes();
 const now1 = moment();
 $styleRequest1 = $('<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Silkscreen"></link>')
   
@@ -37,6 +34,22 @@ $(document).ready(() => {
     "memes/meme10.jpeg",
     "memes/meme12.jpeg", 
   ]
+  $(document).on('click', '.user', function() {
+    // Your click handler code here
+    iWasClicked = true;
+    //reassign theUser variable to this objects id tag
+    theUser = $(this).attr('id')
+    //destroy all divs that do not have that users id
+    $(`#${theUser}`).siblings().remove();
+    //change the clicked variable to true
+    iWasClicked = true;
+    //remove the ability to create new tweets
+    $("#newPostsSection").remove();
+    //reassign the homePage to point to the proper array
+    homePage = streams.users[theUser];
+    //call the create tweets function, passing in the homePage array
+    createTweets(homePage);
+  });
   //create a shallow copy of the array 
   let backupArray = arrayOfMemes.slice();
   //give the head an ID
@@ -57,6 +70,7 @@ $(document).ready(() => {
   let homePage = undefined;
   //create a container for the new section that will take in new posts
   $newPostsSection = ('<section id="newPostsSection"  class="newposts" ></section>');
+ 
   //initialize a variable to a section for tweets
   $section = $('<section id="Tweets Section"></section>');
   //initialize a variable to a div for tweets
@@ -81,7 +95,7 @@ $(document).ready(() => {
   //has the body place the div at the bottom
   $body.append($div) 
   //call the createTWEETS FUNCTION so the page already has at least 1 post when loaded
-  createTweets()
+  //createTweets()
 
     function createTweets(array) {
       //initialize a variable to now
@@ -108,7 +122,22 @@ $(document).ready(() => {
         //set the tweet to be a div with class "user"
         const $tweet = $(`<div id=${tweet.user} class="user" style="font-family: Silkscreen; width:1000px; margin:0 auto;" ></div>`);
         //set a variable to text content of the username and message
-        const $divText = $(`<div id="message&user" class="divTEXT"><strong>@${tweet.user}:</strong> ${tweet.message}></div>`); //this part will also change, something about being clickable
+        const $divText = $(`<div id="message&user" class="divTEXT"><span id="${tweet.user}"class="clickable"><strong>@${tweet.user}:</strong></span> ${tweet.message}></div>`); //this part will also change, something about being clickable
+        $('.clickable').click( function () {
+          iWasClicked = true;
+          //reassign theUser variable to this objects id tag
+          theUser = $(this).attr('id')
+          //destroy all divs that do not have that users id
+          $(`#${theUser}`).siblings().remove();
+          //change the clicked variable to true
+          //iWasClicked = true;
+          //remove the ability to create new tweets
+          $("#newPostsSection").remove();
+          //reassign the homePage to point to the proper array
+          homePage = streams.users[theUser];
+          //call the create tweets function, passing in the homePage array
+          createTweets(homePage);
+        });
         //add this text to the tweet div
         $tweet.append($divText);
         //set up a variable equal to a div containing the time posted
@@ -131,9 +160,7 @@ $(document).ready(() => {
         .css('border-width','8px')
         .css("background-color", "rgb(0, 2, 140)")
         .width(600);
-        
-        
-        
+         
           //this if statement will randomly be triggered if the random number generated is even
           if(Math.floor(Math.random() * 10 ) % 2 === 0 || redactedWasPushed > 4 ){
             console.log('hello')
@@ -150,30 +177,13 @@ $(document).ready(() => {
           }
           return $tweet;   
       });
-   
-      //create a click event handling function for when a class user is clicked
-      $('.user').click( function () {
-        //reassign theUser variable to this objects id tag
-        theUser = $(this).attr('id')
-        //destroy all divs that do not have that users id
-        $(`#${theUser}`).siblings().remove();
-        //change the clicked variable to true
-        iWasClicked = true;
-        //remove the ability to create new tweets
-        $("#newPostsSection").remove();
-        //reassign the homePage to point to the proper array
-        homePage = streams.users[theUser];
-        //call the create tweets function, passing in the homePage array
-        createTweets(homePage);
-      });
-    
     //append random tweets to the tweet section
     $section.prepend($tweets[Math.floor(Math.random() * $tweets.length)]);
 
   };
 
   //set up created tweets to appear every few seconds
-  setInterval(createTweets, 4200); //for now this is cool
+  setInterval(createTweets, 2000); //for now this is cool
     //this setInterval function will be how we keep track of time
     setInterval( function(){
       //all tags with class "timeAgo" will be passed into an each function that will check their id(the variable x from earlier) value
