@@ -138,6 +138,7 @@ $(document).ready(() => {
           //call the create tweets function, passing in the homePage array
           createTweets(homePage);
         });
+       
         //add this text to the tweet div
         $tweet.append($divText);
         //set up a variable equal to a div containing the time posted
@@ -204,6 +205,10 @@ $(document).ready(() => {
     //have this setInterval function run every second. 
     }, 1000)
   
+    $('#logo').on('click', function () {
+      createTweets(streams.home)
+      postMaker($newPostsSection);
+        })
   //pass the newPostsSection into the post-maker function
   postMaker($newPostsSection)
     //create the function that will take sections for the posts and add them to the top
